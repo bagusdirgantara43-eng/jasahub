@@ -1,0 +1,102 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile with role, contact info, and bank details",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "role": { "type": "string", "enum": ["provider", "customer", "admin"] },
+        "isAdmin": { "type": "boolean" },
+        "phoneWhatsApp": { "type": "string" },
+        "address": { "type": "string" },
+        "category": { "type": "string" },
+        "bio": { "type": "string" },
+        "bankAccount": {
+          "type": "object",
+          "properties": {
+            "bankName": { "type": "string" },
+            "accountNumber": { "type": "string" },
+            "accountHolder": { "type": "string" }
+          }
+        },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["uid", "displayName", "email", "role"]
+    },
+    "ServiceItem": {
+      "title": "ServiceItem",
+      "description": "Service offered by a provider",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "providerId": { "type": "string" },
+        "providerName": { "type": "string" },
+        "providerEmail": { "type": "string" },
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "description": { "type": "string" },
+        "photos": { "type": "array" },
+        "location": { "type": "string" },
+        "whatsapp": { "type": "string" },
+        "priceEstimate": { "type": "string" },
+        "dpAmount": { "type": "number" },
+        "rating": { "type": "number" },
+        "reviewCount": { "type": "number" },
+        "isApproved": { "type": "boolean" },
+        "status": { "type": "string", "enum": ["ACTIVE", "BLOCKED"] },
+        "blockReason": { "type": "string" },
+        "blockedAt": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["providerId", "title", "category", "description", "location", "whatsapp"]
+    },
+    "PaymentTransaction": {
+      "title": "PaymentTransaction",
+      "description": "Down payment transaction via QRIS escrow",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "orderId": { "type": "string" },
+        "serviceId": { "type": "string" },
+        "serviceTitle": { "type": "string" },
+        "providerId": { "type": "string" },
+        "providerName": { "type": "string" },
+        "customerId": { "type": "string" },
+        "customerName": { "type": "string" },
+        "customerPhone": { "type": "string" },
+        "grossAmount": { "type": "number" },
+        "platformFeePercentage": { "type": "number" },
+        "platformFee": { "type": "number" },
+        "netPayout": { "type": "number" },
+        "paymentProofUrl": { "type": "string" },
+        "senderName": { "type": "string" },
+        "notes": { "type": "string" },
+        "merchantName": { "type": "string" },
+        "status": { "type": "string", "enum": ["PENDING", "DANA_DITAMPUNG", "DP_DITERUSKAN_KE_PENYEDIA", "REJECTED"] },
+        "payoutProofUrl": { "type": "string" },
+        "payoutAt": { "type": "string" },
+        "payoutNotes": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["serviceTitle", "providerId", "customerId", "grossAmount", "platformFee", "netPayout", "paymentProofUrl", "status"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profiles and settings"
+    },
+    "/services/{serviceId}": {
+      "schema": "ServiceItem",
+      "description": "Services published by providers"
+    },
+    "/payments/{paymentId}": {
+      "schema": "PaymentTransaction",
+      "description": "QRIS payment escrow transactions"
+    }
+  }
+}

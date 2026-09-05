@@ -1,0 +1,6 @@
+{
+  "name": "Platform Jasa & Lowongan Kerja",
+  "description": "Aplikasi layanan penyedia dan penyewa jasa, lowongan pekerjaan, jasa titip (jastip), dan pembayaran DP dengan Firebase.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
